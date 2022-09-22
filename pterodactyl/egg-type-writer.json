@@ -1,0 +1,52 @@
+{
+    "_comment": "DO NOT EDIT: FILE GENERATED AUTOMATICALLY BY PTERODACTYL PANEL - PTERODACTYL.IO",
+    "meta": {
+        "version": "PTDL_v2",
+        "update_url": null
+    },
+    "exported_at": "2022-09-22T19:38:04+02:00",
+    "name": "TypeWriter",
+    "author": "admin@corebyte.ga",
+    "description": "Egg for TypeWriter",
+    "features": null,
+    "docker_images": {
+        "ghcr.io\/parkervcp\/yolks:debian": "ghcr.io\/parkervcp\/yolks:debian"
+    },
+    "file_denylist": [],
+    "startup": ".\/.TypeWriter\/Runtime\/TypeWriter execute --input=${INDEX} ${ARGUMENTS}",
+    "config": {
+        "files": "{}",
+        "startup": "{\r\n    \"done\": \"\"\r\n}",
+        "logs": "{}",
+        "stop": "^C"
+    },
+    "scripts": {
+        "installation": {
+            "script": "#!\/bin\/ash\r\napt update -y\r\napt install -y curl\r\ncurl -fLo .\/TypeWriter.tar.gz https:\/\/github.com\/Dot-lua\/TypeWriter\/releases\/latest\/download\/TypeWriter-$(uname -s)-$(uname -m).tar.gz\r\nmkdir \/mnt\/server\/.TypeWriter\/Runtime\r\ntar -xzf .\/TypeWriter.tar.gz\r\nls\r\nchmod 777 .\/TypeWriter\r\n.\/TypeWriter --install-overwrite=\/mnt\/server\/.TypeWriter\/Runtime\/",
+            "container": "debian:buster-slim",
+            "entrypoint": "bash"
+        }
+    },
+    "variables": [
+        {
+            "name": "Index",
+            "description": "The file that is started",
+            "env_variable": "INDEX",
+            "default_value": "",
+            "user_viewable": true,
+            "user_editable": true,
+            "rules": "required|string",
+            "field_type": "text"
+        },
+        {
+            "name": "Arguments",
+            "description": "Arguments that are passed into the process",
+            "env_variable": "ARGUMENTS",
+            "default_value": "",
+            "user_viewable": true,
+            "user_editable": true,
+            "rules": "nullable|string",
+            "field_type": "text"
+        }
+    ]
+}
